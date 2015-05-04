@@ -18,14 +18,14 @@ var data = [
   {
     year: 2015,
     value: 12,
-    label: 'Rain',
-    code: 'R'
+    indicator_label: 'Rain',
+    indicator_code: 'R'
   },
   {
     year: 2014,
     value: 13,
-    label: 'Rain',
-    code: 'R'
+    indicator_label: 'Rain',
+    indicator_code: 'R'
   }
   ...
 ]
@@ -46,4 +46,8 @@ wt_1.init({
 
 |Name|Description|Example|
 |----|-----------|-------|
-|
+|lang| Language used to display static labels and messages, ISO2 format|en|
+|data| Data to be displayed, as discussed in the previous section| n.a.|
+|placeholder_id|Page ID where the table will be rendered.|mytable|
+|show_row_code|Flag to determin whether the code for the indicators in the first column must be displayed.|true|
+|row_code|JSON property corresponding to the code for the indicators in the first column.|indicator_code|
