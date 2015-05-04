@@ -44,6 +44,8 @@ wt_1.init({
 });
 ```
 
+The next table shows all the parameters required to render a wide table.
+
 |Name|Description|Example|
 |----|-----------|-------|
 |lang| Language used to display static labels and messages, ISO2 format|en|
