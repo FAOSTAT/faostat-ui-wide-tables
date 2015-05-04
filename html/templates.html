@@ -1,3 +1,44 @@
 <script type='text/x-handlebars-template' id='faostat_ui_wide_tables_structure'>
-
+    <div class='row'>
+        <div class='col-xs-12 col-sm-4 col-md-4 col-lg-4'>
+            <table class='table' style='width: 100%;'>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Label</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows_dimension}}
+                    <tr>
+                        <td>{{this.code}}</td>
+                        <td>{{this.label}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class='col-xs-12 col-sm-8 col-md-8 col-lg-8'>
+            <div style='width: 100%; overflow-x: auto;'>
+                <table class='table' style='width: 100%;'>
+                    <thead>
+                        <tr>
+                            {{#each cols_dimension}}
+                            <th>{{this}}</th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each rows_dimension}}
+                        <tr>
+                            {{#each this.values}}
+                            <td>{{this}}</td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </script>

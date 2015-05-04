@@ -14,9 +14,12 @@ define(['jquery',
         this.CONFIG = {
 
             lang: 'en',
+            data: null,
             lang_faostat: 'E',
-            placeholder_id: 'faostat_ui_wide_tables',
-            prefix: 'faostat_ui_wide_tables_'
+            cols_dimension: 'Year',
+            rows_dimension: 'GUNFItemNameE',
+            prefix: 'faostat_ui_wide_tables_',
+            placeholder_id: 'faostat_ui_wide_tables'
 
         };
 
@@ -32,6 +35,37 @@ define(['jquery',
 
         /* Store FAOSTAT language. */
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
+
+        console.log(this.CONFIG.data[10]);
+
+        var cols_dimension = [];
+        var rows_dimension = [];
+        var codes_buffer = [];
+
+        for (var i = 0 ; i < this.CONFIG.data.length ; i++) {
+            if ($.inArray(this.CONFIG.data[i][this.CONFIG.cols_dimension], cols_dimension) < 0) {
+                cols_dimension.push(this.CONFIG.data[i][this.CONFIG.cols_dimension]);
+            }
+            if ($.inArray(this.CONFIG.data[i].UNFCCCCode, codes_buffer) < 0) {
+                codes_buffer.push(this.CONFIG.data[i].UNFCCCCode);
+                rows_dimension.push({
+                    code: this.CONFIG.data[i].UNFCCCCode,
+                    label: this.CONFIG.data[i].GUNFItemNameE,
+                    values: [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5]
+                });
+            }
+        }
+
+        /* Load template. */
+        var source = $(templates).filter('#faostat_ui_wide_tables_structure').html();
+        var template = Handlebars.compile(source);
+        var dynamic_data = {
+            cols_dimension: cols_dimension,
+            rows_dimension: rows_dimension,
+            body: [123, 234, 456]
+        };
+        var html = template(dynamic_data);
+        $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
     };
 
