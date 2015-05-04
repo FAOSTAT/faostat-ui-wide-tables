@@ -21,6 +21,7 @@ define(['jquery',
             row_code        :   null,
             row_label       :   null,
             cols_dimension  :   null,
+            value_dimension :   null,
 
             prefix          :   'faostat_ui_wide_tables_',
             placeholder_id  :   'faostat_ui_wide_tables'
@@ -60,12 +61,12 @@ define(['jquery',
                 }
 
                 /* Store the rows and the values. */
-                if ($.inArray(this.CONFIG.data[i].UNFCCCCode, codes_buffer) < 0) {
-                    codes_buffer.push(this.CONFIG.data[i].UNFCCCCode);
+                if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], codes_buffer) < 0) {
+                    codes_buffer.push(this.CONFIG.data[i][this.CONFIG.row_code]);
                     var values = [];
                     for (var j = 0; j < this.CONFIG.data.length; j++) {
-                        if (this.CONFIG.data[j].UNFCCCCode == this.CONFIG.data[i].UNFCCCCode) {
-                            values.push(parseFloat(this.CONFIG.data[j].GUNFValue) > -1 ? parseFloat(this.CONFIG.data[j].GUNFValue).toFixed(2) : null);
+                        if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
+                            values.push(parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null);
                         }
                     }
                     rows_dimension.push({
@@ -82,6 +83,8 @@ define(['jquery',
             var source = $(templates).filter('#faostat_ui_wide_tables_structure').html();
             var template = Handlebars.compile(source);
             var dynamic_data = {
+                code_label: translate.code,
+                label_label: translate.label,
                 cols_dimension: cols_dimension,
                 rows_dimension: rows_dimension,
                 show_row_code: this.CONFIG.show_row_code
@@ -119,6 +122,10 @@ define(['jquery',
         /* Check cols_dimension. */
         if (this.CONFIG.cols_dimension == null)
             throw translate.cols_dimension_is_null;
+
+        /* Check cols_dimension. */
+        if (this.CONFIG.value_dimension == null)
+            throw translate.value_dimension_is_null;
 
     };
 
