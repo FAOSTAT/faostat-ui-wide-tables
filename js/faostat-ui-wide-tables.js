@@ -13,13 +13,18 @@ define(['jquery',
 
         this.CONFIG = {
 
-            lang: 'en',
-            data: null,
-            lang_faostat: 'E',
-            cols_dimension: 'Year',
-            rows_dimension: 'GUNFItemNameE',
-            prefix: 'faostat_ui_wide_tables_',
-            placeholder_id: 'faostat_ui_wide_tables'
+            lang            :   'en',
+            data            :   null,
+            lang_faostat    :   'E',
+
+            show_row_code   :   true,
+            row_code        :   'UNFCCCCode',
+            row_label       :   'GUNFItemNameE',
+            cols_dimension  :   'Year',
+            rows_dimension  :   'GUNFItemNameE',
+
+            prefix          :   'faostat_ui_wide_tables_',
+            placeholder_id  :   'faostat_ui_wide_tables'
 
         };
 
@@ -41,10 +46,17 @@ define(['jquery',
         var rows_dimension = [];
         var codes_buffer = [];
 
+        console.log(this.CONFIG.data[0]);
+
+        /* Iterate over the values. */
         for (var i = 0 ; i < this.CONFIG.data.length ; i++) {
+
+            /* Store the columns. */
             if ($.inArray(this.CONFIG.data[i][this.CONFIG.cols_dimension], cols_dimension) < 0) {
                 cols_dimension.push(this.CONFIG.data[i][this.CONFIG.cols_dimension]);
             }
+
+            /* Store the rows and the values. */
             if ($.inArray(this.CONFIG.data[i].UNFCCCCode, codes_buffer) < 0) {
                 codes_buffer.push(this.CONFIG.data[i].UNFCCCCode);
                 var values = [];
@@ -54,11 +66,13 @@ define(['jquery',
                     }
                 }
                 rows_dimension.push({
-                    code: this.CONFIG.data[i].UNFCCCCode,
-                    label: this.CONFIG.data[i].GUNFItemNameE,
-                    values: values
+                    values: values,
+                    show_row_code: this.CONFIG.show_row_code,
+                    code: this.CONFIG.data[i][this.CONFIG.row_code],
+                    label: this.CONFIG.data[i][this.CONFIG.row_label]
                 });
             }
+
         }
 
         /* Load template. */
@@ -67,7 +81,7 @@ define(['jquery',
         var dynamic_data = {
             cols_dimension: cols_dimension,
             rows_dimension: rows_dimension,
-            body: [123, 234, 456]
+            show_row_code: this.CONFIG.show_row_code
         };
         var html = template(dynamic_data);
         $('#' + this.CONFIG.placeholder_id).empty().html(html);
