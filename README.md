@@ -55,6 +55,7 @@ The next table shows all the parameters required to render a wide table.
 |row_code|JSON property containing the codes for the indicators in the first column.|indicator_code|
 |row_label|JSON property containing the labels for the indicators in the first column.|indicator_label|
 |cols_dimension|JSON property containing the indicator to be displayed as column headers.|year|
+|value_dimension|JSON property containing the value to be displayed in the table body.|value|
 
 Example
 -------
@@ -82,7 +83,8 @@ Commons.wdstable(sql, function(json) {
     show_row_code: true,
     row_code: 'UNFCCCCode',
     row_label: 'GUNFItemNameE',
-    cols_dimension: 'Year'
+    cols_dimension: 'Year',
+    value_dimension: 'GUNFValue'
   });
 
 }, 'http://localhost:8080/wds/rest');
