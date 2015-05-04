@@ -36,8 +36,7 @@ define(['jquery',
         /* Store FAOSTAT language. */
         this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
-        console.log(this.CONFIG.data[10]);
-
+        /* Initiate variables. */
         var cols_dimension = [];
         var rows_dimension = [];
         var codes_buffer = [];
@@ -48,10 +47,16 @@ define(['jquery',
             }
             if ($.inArray(this.CONFIG.data[i].UNFCCCCode, codes_buffer) < 0) {
                 codes_buffer.push(this.CONFIG.data[i].UNFCCCCode);
+                var values = [];
+                for (var j = 0 ; j < this.CONFIG.data.length ; j++) {
+                    if (this.CONFIG.data[j].UNFCCCCode == this.CONFIG.data[i].UNFCCCCode) {
+                        values.push(parseFloat(this.CONFIG.data[j].GUNFValue) > -1 ? parseFloat(this.CONFIG.data[j].GUNFValue).toFixed(2) : null);
+                    }
+                }
                 rows_dimension.push({
                     code: this.CONFIG.data[i].UNFCCCCode,
                     label: this.CONFIG.data[i].GUNFItemNameE,
-                    values: [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5]
+                    values: values
                 });
             }
         }
