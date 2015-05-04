@@ -63,13 +63,15 @@ Example
 The following example shows how to extract the data through the [WDS Table](https://github.com/FAOSTAT4/faostat-ui-commons/tree/development#wds-table) and display it though the wide tables library.
 
 ```javascript
-/* Test WDS Tables. */
+/* SQL query. */
 var sql =   "SELECT * " +
             "FROM UNFCCC_GAS " +
             "WHERE areacode = '10' " +
             "AND Year >= 1990 AND Year <= 2012 " +
             "AND tabletype = 'emissions' " +
             "ORDER BY UNFCCCCode, Year DESC";
+
+/* Fetch data and define callback function. */
 Commons.wdstable(sql, function(json) {
 
   /* Initiate wide tables library. */
