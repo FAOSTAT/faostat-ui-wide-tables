@@ -1,0 +1,48 @@
+<script type='text/x-handlebars-template' id='faostat_ui_wide_tables_structure'>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-4 col-md-4 col-lg-4' style='padding-right: 0px;'>
+            <table class='table table-striped table-responsive table-bordered table-condensed' style='width: 100%;'>
+                <thead>
+                    <tr>
+                        {{#if show_row_code}}
+                        <th>{{code_label}}</th>
+                        {{/if}}
+                        <th>{{label_label}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows_dimension}}
+                    <tr>
+                        {{#if show_row_code}}
+                        <td id='{{this.code}}'>{{this.code}}</td>
+                        {{/if}}
+                        <td>{{this.label}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class='col-xs-12 col-sm-8 col-md-8 col-lg-8' style='padding-left: 0px;'>
+            <div style='width: 100%; overflow-x: auto;'>
+                <table class='table table-striped table-responsive table-bordered table-condensed' style='width: 100%;'>
+                    <thead>
+                        <tr>
+                            {{#each cols_dimension}}
+                            <th>{{this}}</th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each rows_dimension}}
+                        <tr>
+                            {{#each this.values}}
+                            <td>{{this}}</td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
