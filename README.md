@@ -76,9 +76,9 @@ Commons.wdstable(sql, function(json) {
 
   /* Initiate the library. */
   wt_1.init({
-    lang: _this.CONFIG.lang,
+    lang: 'en',
     data: json,
-    placeholder_id: _this.CONFIG.placeholder_id,
+    placeholder_id: 'my_table',
     show_row_code: true,
     row_code: 'UNFCCCCode',
     row_label: 'GUNFItemNameE',
