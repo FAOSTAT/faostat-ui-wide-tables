@@ -3,7 +3,7 @@ FAOSTAT UI Wide Tables
 
 This library displays data in the wide format, meaning that the indicators are displayed in the first row and the years (or another dimension) are shown as column headers:
 
-|Name|2015|2014|2014|
+|Indicator|2015|2014|2014|
 |----|----|----|----|
 |**Rain**|12|13|18|
 |**Temperature**|8|7|6|
