@@ -95,7 +95,11 @@ The final result is very similar to the image below:
 Please Note
 -----------
 
-The tool displays the data as is, which means that the array must be already sorted according to the user needs.
+The tool displays the data as is, which means that the array must be already sorted according to the user needs. The query in the previous example defines the order of the data:
+
+```sql
+ORDER BY UNFCCCCode, Year DESC
+```
 
 Developed with 
 --------------
