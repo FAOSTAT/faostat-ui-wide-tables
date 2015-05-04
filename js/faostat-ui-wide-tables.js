@@ -21,7 +21,6 @@ define(['jquery',
             row_code        :   null,
             row_label       :   null,
             cols_dimension  :   null,
-            rows_dimension  :   null,
 
             prefix          :   'faostat_ui_wide_tables_',
             placeholder_id  :   'faostat_ui_wide_tables'
@@ -116,10 +115,6 @@ define(['jquery',
         /* Check row_label. */
         if (this.CONFIG.row_label == null)
             throw translate.row_label_is_null;
-
-        /* Check rows_dimension. */
-        if (this.CONFIG.rows_dimension == null)
-            throw translate.rows_dimension_is_null;
 
         /* Check cols_dimension. */
         if (this.CONFIG.cols_dimension == null)
