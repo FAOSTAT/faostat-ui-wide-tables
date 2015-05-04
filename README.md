@@ -86,6 +86,10 @@ Commons.wdstable(sql, function(json) {
 }, 'http://localhost:8080/wds/rest');
 ```
 
+The final result is very similar to the image below:
+
+![Wide table example](https://github.com/FAOSTAT4/faostat-ui-wide-tables/blob/development/resources/images/wide_table.png)
+
 Please Note
 -----------
 
