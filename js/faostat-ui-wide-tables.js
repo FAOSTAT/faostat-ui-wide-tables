@@ -66,7 +66,10 @@ define(['jquery',
                     var values = [];
                     for (var j = 0; j < this.CONFIG.data.length; j++) {
                         if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
-                            values.push(parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null);
+                            var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
+                            if (value == null)
+                                value = '&nbsp;';
+                            values.push(value);
                         }
                     }
                     rows_dimension.push({
