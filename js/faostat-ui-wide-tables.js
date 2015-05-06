@@ -90,7 +90,8 @@ define(['jquery',
                 label_label: translate.label,
                 cols_dimension: cols_dimension,
                 rows_dimension: rows_dimension,
-                show_row_code: this.CONFIG.show_row_code
+                show_row_code: this.CONFIG.show_row_code,
+                scroll_id:this.CONFIG.placeholder_id + '_scroll'
             };
             var html = template(dynamic_data);
             $('#' + this.CONFIG.placeholder_id).empty().html(html);
