@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/FAOSTAT4/faostat-ui-wide-tables.png?label=ready&title=Ready)](https://waffle.io/FAOSTAT4/faostat-ui-wide-tables)
 FAOSTAT UI Wide Tables
 ======================
 
