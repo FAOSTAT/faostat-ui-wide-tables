@@ -1,11 +1,12 @@
 define(['jquery',
+        'underscore',
         'handlebars',
         'text!faostat_ui_wide_tables/html/templates.html',
         'i18n!faostat_ui_wide_tables/nls/translate',
         'FAOSTAT_UI_COMMONS',
         'bootstrap',
         'sweetAlert',
-        'amplify'], function ($, Handlebars, templates, translate, Commons) {
+        'amplify'], function ($, _, Handlebars, templates, translate, Commons) {
 
     'use strict';
 
@@ -96,6 +97,9 @@ define(['jquery',
             Handlebars.registerHelper('get_class_name', function (value) {
                 return _this.CONFIG.color_values ? (value > 0 ? 'green_value' : 'red_value') : '';
             });
+
+            /* Sort rows by label. */
+            rows_dimension = _.sortBy(rows_dimension, 'label');
 
             /* Load template. */
             var source = $(templates).filter('#faostat_ui_wide_tables_structure').html();
