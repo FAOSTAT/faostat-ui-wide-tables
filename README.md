@@ -57,6 +57,8 @@ The next table shows all the parameters required to render a wide table.
 |row_label|JSON property containing the labels for the indicators in the first column.|indicator_label|
 |cols_dimension|JSON property containing the indicator to be displayed as column headers.|year|
 |value_dimension|JSON property containing the value to be displayed in the table body.|value|
+|color_values|When this flag is set to true, values greater than zero are painted green, while values smaller than zero are painted red.|false|
+|blacklist|This array of values is used to avoid certain codes to be displayed in the table.|[1, 2, 3]|
 
 Example
 -------
