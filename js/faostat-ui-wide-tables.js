@@ -17,12 +17,13 @@ define(['jquery',
             data            :   null,
             lang_faostat    :   'E',
 
-            show_row_code   :   true,
             row_code        :   null,
             row_label       :   null,
+            blacklist       :   [],
+            color_values    :   false,
+            show_row_code   :   true,
             cols_dimension  :   null,
             value_dimension :   null,
-            color_values    :   false,
 
             prefix          :   'faostat_ui_wide_tables_',
             placeholder_id  :   'faostat_ui_wide_tables'
@@ -64,24 +65,29 @@ define(['jquery',
                     cols_dimension.push(this.CONFIG.data[i][this.CONFIG.cols_dimension]);
                 }
 
-                /* Store the rows and the values. */
-                if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], codes_buffer) < 0) {
-                    codes_buffer.push(this.CONFIG.data[i][this.CONFIG.row_code]);
-                    var values = [];
-                    for (var j = 0; j < this.CONFIG.data.length; j++) {
-                        if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
-                            var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
-                            if (value == null)
-                                value = '&nbsp;';
-                            values.push(value);
+                /* Check whether the code is in the blacklist. */
+                if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], this.CONFIG.blacklist) < 0) {
+
+                    /* Store the rows and the values. */
+                    if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], codes_buffer) < 0) {
+                        codes_buffer.push(this.CONFIG.data[i][this.CONFIG.row_code]);
+                        var values = [];
+                        for (var j = 0; j < this.CONFIG.data.length; j++) {
+                            if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
+                                var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
+                                if (value == null)
+                                    value = '&nbsp;';
+                                values.push(value);
+                            }
                         }
+                        rows_dimension.push({
+                            values: values,
+                            show_row_code: this.CONFIG.show_row_code,
+                            code: this.CONFIG.data[i][this.CONFIG.row_code],
+                            label: this.CONFIG.data[i][this.CONFIG.row_label]
+                        });
                     }
-                    rows_dimension.push({
-                        values: values,
-                        show_row_code: this.CONFIG.show_row_code,
-                        code: this.CONFIG.data[i][this.CONFIG.row_code],
-                        label: this.CONFIG.data[i][this.CONFIG.row_label]
-                    });
+
                 }
 
             }
