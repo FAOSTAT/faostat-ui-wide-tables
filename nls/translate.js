@@ -8,7 +8,11 @@ define({
         rows_dimension_is_null: 'Property "rows_dimension" is null. Please check your configuration.',
         value_dimension_is_null: 'Property "value_dimension" is null. Please check your configuration.',
         code: 'Code',
-        label: 'Label'
+        label: 'Label',
+        source: 'Source',
+        date: 'Date',
+        faostat: 'FAOSTAT',
+        description: 'Description'
     },
     fr : true,
     es : true

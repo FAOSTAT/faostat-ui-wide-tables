@@ -27,7 +27,10 @@ define(['jquery',
             value_dimension :   null,
 
             prefix          :   'faostat_ui_wide_tables_',
-            placeholder_id  :   'faostat_ui_wide_tables'
+            placeholder_id  :   'faostat_ui_wide_tables',
+
+            template_cols_dimension :   [],
+            template_rows_dimension :   []
 
         };
 
@@ -54,16 +57,16 @@ define(['jquery',
             this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
 
             /* Initiate variables. */
-            var cols_dimension = [];
-            var rows_dimension = [];
+            this.CONFIG.template_cols_dimension = [];
+            this.CONFIG.template_rows_dimension = [];
             var codes_buffer = [];
 
             /* Iterate over the values. */
             for (var i = 0; i < this.CONFIG.data.length; i++) {
 
                 /* Store the columns. */
-                if ($.inArray(this.CONFIG.data[i][this.CONFIG.cols_dimension], cols_dimension) < 0) {
-                    cols_dimension.push(this.CONFIG.data[i][this.CONFIG.cols_dimension]);
+                if ($.inArray(this.CONFIG.data[i][this.CONFIG.cols_dimension], this.CONFIG.template_cols_dimension) < 0) {
+                    this.CONFIG.template_cols_dimension.push(this.CONFIG.data[i][this.CONFIG.cols_dimension]);
                 }
 
                 /* Check whether the code is in the blacklist. */
@@ -81,7 +84,7 @@ define(['jquery',
                                 values.push(value);
                             }
                         }
-                        rows_dimension.push({
+                        this.CONFIG.template_rows_dimension.push({
                             values: values,
                             show_row_code: this.CONFIG.show_row_code,
                             code: this.CONFIG.data[i][this.CONFIG.row_code],
@@ -99,7 +102,7 @@ define(['jquery',
             });
 
             /* Sort rows by label. */
-            rows_dimension = _.sortBy(rows_dimension, 'label');
+            this.CONFIG.template_rows_dimension = _.sortBy(this.CONFIG.template_rows_dimension, 'label');
 
             /* Load template. */
             var source = $(templates).filter('#faostat_ui_wide_tables_structure').html();
@@ -107,8 +110,8 @@ define(['jquery',
             var dynamic_data = {
                 code_label: translate.code,
                 label_label: translate.label,
-                cols_dimension: cols_dimension,
-                rows_dimension: rows_dimension,
+                cols_dimension: this.CONFIG.template_cols_dimension,
+                rows_dimension: this.CONFIG.template_rows_dimension,
                 show_row_code: this.CONFIG.show_row_code,
                 scroll_id:this.CONFIG.placeholder_id + '_scroll'
             };
@@ -125,6 +128,70 @@ define(['jquery',
             });
 
         }
+
+    };
+
+    WIDE_TABLES.prototype.export_table = function(description, file_name) {
+
+        /* Set file name. */
+        file_name = file_name != null ? file_name + '.csv' : 'FAOSTAT.csv';
+
+        /* Initiate the CSV content. */
+        var csv = '';
+
+        /* Add code header. */
+        if (this.CONFIG.show_row_code)
+            csv += '\"' + translate.code + '\",';
+
+        /* Add label header. */
+        csv += '\"' + translate.label + '\",';
+
+        /* Add column headers. */
+        for (var i = 0 ; i < this.CONFIG.template_cols_dimension.length ; i++) {
+            csv += '\"' + this.CONFIG.template_cols_dimension[i] + '\"';
+            if (i < this.CONFIG.template_cols_dimension.length - 1)
+                csv += ','
+        }
+        csv += '\n';
+
+        /* Iterate over contents. */
+        for (i = 0 ; i < this.CONFIG.template_rows_dimension.length ; i++) {
+
+            /* Current row. */
+            var row = this.CONFIG.template_rows_dimension[i];
+
+            /* Add code. */
+            if (this.CONFIG.show_row_code)
+                csv += '\"' + row.code + '\",';
+
+            /* Add label. */
+            csv += '\"' + row.label + '\", ';
+
+            /* Add values. */
+            for (var j = 0 ; j < row.values.length ; j++) {
+                csv += row.values[j] != '&nbsp;' ? '\"' + row.values[j] + '\"' : '';
+                if (j < row.values.length - 1)
+                    csv += ',';
+            }
+
+            /* Add new line. */
+            csv += '\n';
+
+        }
+
+        /* Add source and date. */
+        csv += '\n\n\n';
+        csv += translate.description + ': ' + description + '\n';
+        csv += translate.source + ': ' + translate.faostat + '\n';
+        csv += translate.date + ': ' + (new Date()).toDateString() + '\n';
+
+        /* Export the CSV. */
+        var a = document.createElement('a');
+        a.href = 'data:text/csv;charset=utf-8,\n' + encodeURIComponent(csv);
+        a.target = '_blank';
+        a.download = file_name;
+        document.body.appendChild(a);
+        a.click();
 
     };
 
