@@ -22,6 +22,7 @@ define(['jquery',
             row_label       :   null,
             cols_dimension  :   null,
             value_dimension :   null,
+            color_values    :   false,
 
             prefix          :   'faostat_ui_wide_tables_',
             placeholder_id  :   'faostat_ui_wide_tables'
@@ -34,6 +35,9 @@ define(['jquery',
 
         /* Extend default configuration. */
         this.CONFIG = $.extend(true, {}, this.CONFIG, config);
+
+        /* This... */
+        var _this = this;
 
         /* Check configuration. */
         try {
@@ -81,6 +85,11 @@ define(['jquery',
                 }
 
             }
+
+            /* Register function to colour items based on their colour. */
+            Handlebars.registerHelper('get_class_name', function (value) {
+                return _this.CONFIG.color_values ? (value > 0 ? 'green_value' : 'red_value') : '';
+            });
 
             /* Load template. */
             var source = $(templates).filter('#faostat_ui_wide_tables_structure').html();
