@@ -214,6 +214,31 @@ define(['jquery',
 
         }
 
+        /* Iterate over bottom row. */
+        for (i = 0 ; i < this.CONFIG.template_bottom_rows_dimension.length ; i++) {
+
+            /* Current row. */
+            row = this.CONFIG.template_bottom_rows_dimension[i];
+
+            /* Add code. */
+            if (this.CONFIG.show_row_code)
+                csv += '\"' + row.code + '\",';
+
+            /* Add label. */
+            csv += '\"' + row.label + '\", ';
+
+            /* Add values. */
+            for (j = 0 ; j < row.values.length ; j++) {
+                csv += row.values[j] != '&nbsp;' ? '\"' + row.values[j] + '\"' : '';
+                if (j < row.values.length - 1)
+                    csv += ',';
+            }
+
+            /* Add new line. */
+            csv += '\n';
+
+        }
+
         /* Add source and date. */
         csv += '\n\n\n';
         csv += translate.description + ': ' + description + '\n';
