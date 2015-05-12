@@ -114,6 +114,10 @@ var config = {
 }
 ```
 
+The final result is very similar to the image below:
+
+![Wide table example](https://github.com/FAOSTAT4/faostat-ui-wide-tables/blob/development/resources/images/wide_table_totals.png)
+
 Color Values
 ------------
 
@@ -126,6 +130,10 @@ var config = {
   ...
 }
 ```
+
+The final result is very similar to the image below:
+
+![Wide table example](https://github.com/FAOSTAT4/faostat-ui-wide-tables/blob/development/resources/images/wide_table_colors.png)
 
 Export Table
 ------------
