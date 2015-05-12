@@ -5,7 +5,9 @@
                 <thead>
                     <tr>
                         {{#if show_row_code}}
-                        <th>{{code_label}}</th>
+                        <th>
+                            {{code_label}}
+                        </th>
                         {{/if}}
                         <th>{{label_label}}</th>
                     </tr>
@@ -14,9 +16,25 @@
                     {{#each rows_dimension}}
                     <tr>
                         {{#if show_row_code}}
-                        <td id='{{this.code}}'>{{this.code}}</td>
+                        <td id='{{this.code}}'>
+                            {{this.code}}
+                        </td>
                         {{/if}}
-                        <td>{{this.label}}</td>
+                        <td>
+                            {{this.label}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{#each bottom_rows_dimension}}
+                    <tr>
+                        {{#if show_row_code}}
+                        <td class='bottom_row' id='{{this.bottom_code}}'>
+                            {{this.bottom_code}}
+                        </td>
+                        {{/if}}
+                        <td class='bottom_row'>
+                            {{this.label}}
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -36,7 +54,18 @@
                         {{#each rows_dimension}}
                         <tr>
                             {{#each this.values}}
-                            <td class='{{get_class_name this}}'>{{{this}}}</td>
+                            <td class='{{get_class_name this}}'>
+                                {{{this}}}
+                            </td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                        {{#each bottom_rows_dimension}}
+                        <tr>
+                            {{#each this.values}}
+                            <td class='bottom_row'>
+                                {{{this}}}
+                            </td>
                             {{/each}}
                         </tr>
                         {{/each}}

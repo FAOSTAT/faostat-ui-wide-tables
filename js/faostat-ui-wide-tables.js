@@ -14,23 +14,25 @@ define(['jquery',
 
         this.CONFIG = {
 
-            lang            :   'en',
-            data            :   null,
-            lang_faostat    :   'E',
+            lang                            :   'en',
+            data                            :   null,
+            lang_faostat                    :   'E',
 
-            row_code        :   null,
-            row_label       :   null,
-            blacklist       :   [],
-            color_values    :   false,
-            show_row_code   :   true,
-            cols_dimension  :   null,
-            value_dimension :   null,
+            row_code                        :   null,
+            row_label                       :   null,
+            blacklist                       :   [],
+            color_values                    :   false,
+            show_row_code                   :   true,
+            cols_dimension                  :   null,
+            value_dimension                 :   null,
+            bottom_row_codes                :   null,
 
-            prefix          :   'faostat_ui_wide_tables_',
-            placeholder_id  :   'faostat_ui_wide_tables',
+            prefix                          :   'faostat_ui_wide_tables_',
+            placeholder_id                  :   'faostat_ui_wide_tables',
 
-            template_cols_dimension :   [],
-            template_rows_dimension :   []
+            template_cols_dimension         :   [],
+            template_rows_dimension         :   [],
+            template_bottom_rows_dimension  :   []
 
         };
 
@@ -59,7 +61,9 @@ define(['jquery',
             /* Initiate variables. */
             this.CONFIG.template_cols_dimension = [];
             this.CONFIG.template_rows_dimension = [];
+            this.CONFIG.template_bottom_rows_dimension = [];
             var codes_buffer = [];
+            var bottom_codes_buffer = [];
 
             /* Iterate over the values. */
             for (var i = 0; i < this.CONFIG.data.length; i++) {
@@ -72,24 +76,54 @@ define(['jquery',
                 /* Check whether the code is in the blacklist. */
                 if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], this.CONFIG.blacklist) < 0) {
 
-                    /* Store the rows and the values. */
-                    if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], codes_buffer) < 0) {
-                        codes_buffer.push(this.CONFIG.data[i][this.CONFIG.row_code]);
-                        var values = [];
-                        for (var j = 0; j < this.CONFIG.data.length; j++) {
-                            if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
-                                var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
-                                if (value == null)
-                                    value = '&nbsp;';
-                                values.push(value);
+                    /* Bottom row has a different template. */
+                    if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], this.CONFIG.bottom_row_codes) < 0) {
+
+                        /* Store the rows and the values. */
+                        if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], codes_buffer) < 0) {
+                            codes_buffer.push(this.CONFIG.data[i][this.CONFIG.row_code]);
+                            var values = [];
+                            for (var j = 0; j < this.CONFIG.data.length; j++) {
+                                if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
+                                    var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
+                                    if (value == null)
+                                        value = '&nbsp;';
+                                    values.push(value);
+                                }
                             }
+                            this.CONFIG.template_rows_dimension.push({
+                                values: values,
+                                show_row_code: this.CONFIG.show_row_code,
+                                code: this.CONFIG.data[i][this.CONFIG.row_code],
+                                label: this.CONFIG.data[i][this.CONFIG.row_label]
+                            });
                         }
-                        this.CONFIG.template_rows_dimension.push({
-                            values: values,
-                            show_row_code: this.CONFIG.show_row_code,
-                            code: this.CONFIG.data[i][this.CONFIG.row_code],
-                            label: this.CONFIG.data[i][this.CONFIG.row_label]
-                        });
+
+                    }
+
+                    /* Collect values for the bottom row. */
+                    else {
+
+                        /* Store the rows and the values. */
+                        if ($.inArray(this.CONFIG.data[i][this.CONFIG.row_code], bottom_codes_buffer) < 0) {
+                            bottom_codes_buffer.push(this.CONFIG.data[i][this.CONFIG.row_code]);
+                            var bottom_values = [];
+                            for (j = 0; j < this.CONFIG.data.length; j++) {
+                                if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
+                                    var bottom_value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
+                                    if (bottom_value == null)
+                                        bottom_value = '&nbsp;';
+                                    bottom_values.push(bottom_value);
+                                }
+                            }
+                            this.CONFIG.template_bottom_rows_dimension.push({
+                                values: bottom_values,
+                                show_row_code: this.CONFIG.show_row_code,
+                                bottom_code: this.CONFIG.data[i][this.CONFIG.row_code],
+                                label: this.CONFIG.data[i][this.CONFIG.row_label]
+                            });
+                        }
+
                     }
 
                 }
@@ -112,6 +146,7 @@ define(['jquery',
                 label_label: translate.label,
                 cols_dimension: this.CONFIG.template_cols_dimension,
                 rows_dimension: this.CONFIG.template_rows_dimension,
+                bottom_rows_dimension: this.CONFIG.template_bottom_rows_dimension,
                 show_row_code: this.CONFIG.show_row_code,
                 scroll_id:this.CONFIG.placeholder_id + '_scroll'
             };

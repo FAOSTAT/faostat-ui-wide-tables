@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,YAAa;EACX,KAAK,EAAE,OAAO;;AAGhB,UAAW;EACT,KAAK,EAAE,OAAO;;AAGhB,WAAY;EACV,WAAW,EAAE,IAAI;EACjB,gBAAgB,EAAE,IAAI;EACtB,KAAK,EAAE,IAAI",
+"sources": ["faostat-ui-wide-tables.scss"],
+"names": [],
+"file": "faostat-ui-wide-tables.css"
+}
