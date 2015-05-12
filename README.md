@@ -1,16 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [FAOSTAT UI Wide Tables](#faostat-ui-wide-tables)
-  - [Data Format](#data-format)
-  - [Parameters](#parameters)
-  - [Example](#example)
-  - [Please Note](#please-note)
-  - [Developed with ](#developed-with)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 [![Stories in Progress](https://badge.waffle.io/faostat4/faostat-ui-wide-tables.svg?label=in%20Progress&title=In%20Progress)](http://waffle.io/faostat4/faostat-ui-wide-tables)
 
 FAOSTAT UI Wide Tables
@@ -111,13 +98,34 @@ The final result is very similar to the image below:
 
 ![Wide table example](https://github.com/FAOSTAT4/faostat-ui-wide-tables/blob/development/resources/images/wide_table.png)
 
-Please Note
------------
+Export Table
+------------
 
-The tool displays the data as is, which means that the array must be already sorted according to the user needs. The query in the previous example defines the order of the data:
+The export function creates a CSV file and needs two parameters:
 
-```sql
-ORDER BY UNFCCCCode, Year DESC
+|Name|Description|Example|
+|----|-----------|-------|
+|description|A string that will be added at the bottom of the file.|"This table has been automatically generated."|
+|file_name|Name of the output file, without extension.|my_file|
+
+```javascript
+/* Initiate wide tables library. */
+var wt_1 = new WIDE_TABLES();
+
+/* Initiate the library. */
+wt_1.init({
+  lang: 'en',
+  data: json,
+  placeholder_id: 'my_table',
+  show_row_code: true,
+  row_code: 'UNFCCCCode',
+  row_label: 'GUNFItemNameE',
+  cols_dimension: 'Year',
+  value_dimension: 'GUNFValue'
+});
+
+/* Export the table. */
+wt_1.export_table('This table is very nice!', 'my_table');
 ```
 
 Developed with 
