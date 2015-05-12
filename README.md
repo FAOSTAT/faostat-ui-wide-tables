@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [FAOSTAT UI Wide Tables](#faostat-ui-wide-tables)
+  - [Data Format](#data-format)
+  - [Parameters](#parameters)
+  - [Example](#example)
+  - [Please Note](#please-note)
+  - [Developed with ](#developed-with)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 [![Stories in Progress](https://badge.waffle.io/faostat4/faostat-ui-wide-tables.svg?label=in%20Progress&title=In%20Progress)](http://waffle.io/faostat4/faostat-ui-wide-tables)
 
 FAOSTAT UI Wide Tables
