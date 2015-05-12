@@ -1,4 +1,4 @@
-[![Stories in Progress](https://badge.waffle.io/faostat4/faostat-ui-wide-tables.svg?label=progress&title=Progress)](http://waffle.io/faostat4/faostat-ui-wide-tables)
+[![Stories in Progress](https://badge.waffle.io/faostat4/faostat-ui-wide-tables.svg?label=in%20Progress&title=In%20Progress)](http://waffle.io/faostat4/faostat-ui-wide-tables)
 
 FAOSTAT UI Wide Tables
 ======================
