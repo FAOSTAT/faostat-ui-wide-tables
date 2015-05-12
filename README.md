@@ -1,4 +1,5 @@
-[![Stories in Progress](https://badge.waffle.io/FAOSTAT4/faostat-ui-wide-tables.png?label=progress&title=Progress)](https://waffle.io/FAOSTAT4/faostat-ui-wide-tables)
+[![Stories in Progress](https://badge.waffle.io/faostat4/faostat-ui-wide-tables.svg?label=in%20Progress&title=In%20Progress)](http://waffle.io/faostat4/faostat-ui-wide-tables)
+
 FAOSTAT UI Wide Tables
 ======================
 
@@ -57,8 +58,9 @@ The next table shows all the parameters required to render a wide table.
 |row_label|JSON property containing the labels for the indicators in the first column.|indicator_label|
 |cols_dimension|JSON property containing the indicator to be displayed as column headers.|year|
 |value_dimension|JSON property containing the value to be displayed in the table body.|value|
-|color_values|When this flag is set to true, values greater than zero are painted green, while values smaller than zero are painted red.|false|
-|blacklist|This array of values is used to avoid certain codes to be displayed in the table.|[1, 2, 3]|
+|blacklist|Array of codes that will not be displayed in the table.|['1', '5', '7']|
+|color_values|Flag to determin whether the numbers in the tables will be colored according to their value: green for values greater than zero and red for the ones smaller than zero.|true|
+|bottom_row_codes|Array of values to be displayed in the bottom row(s) with a different style.|['27']|
 
 Example
 -------
@@ -99,13 +101,68 @@ The final result is very similar to the image below:
 
 ![Wide table example](https://github.com/FAOSTAT4/faostat-ui-wide-tables/blob/development/resources/images/wide_table.png)
 
-Please Note
------------
+Bottom Row
+----------
 
-The tool displays the data as is, which means that the array must be already sorted according to the user needs. The query in the previous example defines the order of the data:
+Values in the last row of the tables are emphasized in bold, with a different background and font color. It is possible to specify which codes must be highlighted (e.g. the totals) through the ```bottom_row_codes``` parameter.
 
-```sql
-ORDER BY UNFCCCCode, Year DESC
+```javascript
+var config = {
+  ...
+  bottom_row_codes: ['1058']
+  ...
+}
+```
+
+The final result is very similar to the image below:
+
+![Wide table example](https://github.com/FAOSTAT4/faostat-ui-wide-tables/blob/development/resources/images/wide_table_totals.png)
+
+Color Values
+------------
+
+It is possible to display the values in the table in different colors, according to the numeric value: <span style='color: #009B77'>green</span> for values greater than zero, and <span style='color: #9B2335'>red</span> for values smaller than zero. Zero will be displayed with the standard color.
+
+```javascript
+var config = {
+  ...
+  color_values: true
+  ...
+}
+```
+
+The final result is very similar to the image below:
+
+![Wide table example](https://github.com/FAOSTAT4/faostat-ui-wide-tables/blob/development/resources/images/wide_table_colors.png)
+
+Export Table
+------------
+
+The export function creates a CSV file and needs two parameters:
+
+|Name|Description|Example|
+|----|-----------|-------|
+|description|A string that will be added at the bottom of the file.|"This table has been automatically generated."|
+|file_name|Name of the output file, without extension.|my_file|
+
+```javascript
+/* Initiate wide tables library. */
+var wt_1 = new WIDE_TABLES();
+
+/* Initiate the library. */
+wt_1.init({
+  lang: 'en',
+  data: json,
+  placeholder_id: 'my_table',
+  show_row_code: true,
+  row_code: 'UNFCCCCode',
+  row_label: 'GUNFItemNameE',
+  cols_dimension: 'Year',
+  value_dimension: 'GUNFValue'
+});
+
+/* Export the table. */
+wt_1.export_table('This table is very nice!', 'my_table');
 ```
 
 Developed with 
