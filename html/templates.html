@@ -1,0 +1,77 @@
+<script type='text/x-handlebars-template' id='faostat_ui_wide_tables_structure'>
+    <div class='row'>
+        <div class='col-xs-12 col-sm-4 col-md-4 col-lg-4' style='padding-right: 0px;'>
+            <table class='table table-striped table-responsive table-bordered table-condensed' style='width: 100%;'>
+                <thead>
+                    <tr>
+                        {{#if show_row_code}}
+                        <th>
+                            {{code_label}}
+                        </th>
+                        {{/if}}
+                        <th>{{label_label}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each rows_dimension}}
+                    <tr>
+                        {{#if show_row_code}}
+                        <td id='{{this.code}}'>
+                            {{this.code}}
+                        </td>
+                        {{/if}}
+                        <td>
+                            {{this.label}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{#each bottom_rows_dimension}}
+                    <tr>
+                        {{#if show_row_code}}
+                        <td class='bottom_row' id='{{this.bottom_code}}'>
+                            {{this.bottom_code}}
+                        </td>
+                        {{/if}}
+                        <td class='bottom_row'>
+                            {{this.label}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class='col-xs-12 col-sm-8 col-md-8 col-lg-8' style='padding-left: 0px;'>
+            <div style='width: 100%; overflow-x: auto;' class='wide_tables_scroll' id='{{scroll_id}}'>
+                <table class='table table-striped table-responsive table-bordered table-condensed' style='width: 100%;'>
+                    <thead>
+                        <tr>
+                            {{#each cols_dimension}}
+                            <th>{{this}}</th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each rows_dimension}}
+                        <tr>
+                            {{#each this.values}}
+                            <td class='{{get_class_name this}}'>
+                                {{{this}}}
+                            </td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                        {{#each bottom_rows_dimension}}
+                        <tr>
+                            {{#each this.values}}
+                            <td class='bottom_row'>
+                                {{{this}}}
+                            </td>
+                            {{/each}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</script>
