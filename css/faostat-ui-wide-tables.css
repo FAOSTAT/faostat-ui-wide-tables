@@ -6,7 +6,7 @@
 
 .bottom_row {
   font-weight: bold;
-  background-color: #666;
+  background-color: #666 !important;
   color: #fff; }
 
 /*# sourceMappingURL=faostat-ui-wide-tables.css.map */
