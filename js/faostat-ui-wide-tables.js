@@ -24,6 +24,7 @@ define(['jquery',
             cols_dimension                  :   null,
             value_dimension                 :   null,
             bottom_row_codes                :   null,
+            sort_by                         :   'label',
 
             prefix                          :   'faostat_ui_wide_tables_',
             placeholder_id                  :   'faostat_ui_wide_tables',
@@ -134,7 +135,7 @@ define(['jquery',
             });
 
             /* Sort rows by label. */
-            this.CONFIG.template_rows_dimension = _.sortBy(this.CONFIG.template_rows_dimension, 'label');
+            this.CONFIG.template_rows_dimension = _.sortBy(this.CONFIG.template_rows_dimension, this.CONFIG.sort_by);
 
             /* Load template. */
             var source = $(templates).filter('#faostat_ui_wide_tables_structure').html();
