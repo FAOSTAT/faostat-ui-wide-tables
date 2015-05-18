@@ -1,12 +1,11 @@
-define(['jquery',
-        'underscore',
+define(['underscore',
         'handlebars',
         'text!faostat_ui_wide_tables/html/templates.html',
         'i18n!faostat_ui_wide_tables/nls/translate',
         'FAOSTAT_UI_COMMONS',
         'bootstrap',
         'sweetAlert',
-        'amplify'], function ($, _, Handlebars, templates, translate, Commons) {
+        'amplify'], function (_, Handlebars, templates, translate, Commons) {
 
     'use strict';
 
