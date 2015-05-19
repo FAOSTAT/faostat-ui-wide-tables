@@ -11,3 +11,24 @@
   background-color: #666 !important;
   color: #fff;
 }
+
+.wide-table {
+  line-height: 20px;
+  thead {
+    background-color: #90AEC3;
+    color: #fff;
+    font-size: 12px;
+  }
+  th {
+    padding: 4px 6px 4px 6px;
+  }
+  tbody {
+    td {
+      padding: 8px;
+    }
+    tr:hover {
+      background-color: #2471AA !important;
+      color: #fff !important;
+    }
+  }
+}
