@@ -161,27 +161,28 @@ define(['jquery',
             var html = template(dynamic_data);
             $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
-            $('#' + this.CONFIG.placeholder_id + ' tr').mouseenter(function() {
-                var row_index = $(this).data('rowindex');
-                if (row_index != null) {
-                    try {
-                        $('#' + _this.CONFIG.prefix + '_right' + ' tbody tr:nth-child(' + row_index + ')').addClass('linked-row');
-                        $('#' + _this.CONFIG.prefix + '_left' + ' tbody tr:nth-child(' + row_index + ')').addClass('linked-row');
-                    } catch (e) {
-
-                    }
-                }
-            }).mouseleave(function() {
-                var row_index = $(this).data('rowindex');
-                if (row_index != null) {
-                    try {
-                        $('#' + _this.CONFIG.prefix + '_right' + ' tbody tr:nth-child(' + row_index + ')').removeClass('linked-row');
-                        $('#' + _this.CONFIG.prefix + '_left' + ' tbody tr:nth-child(' + row_index + ')').removeClass('linked-row');
-                    } catch (e) {
-
-                    }
-                }
-            });
+            /* Synchronize row highlight on multiple tables. */
+            //$('#' + this.CONFIG.placeholder_id + ' tr').mouseenter(function() {
+            //    var row_index = $(this).data('rowindex');
+            //    if (row_index != null) {
+            //        try {
+            //            $('#' + _this.CONFIG.prefix + '_right' + ' tbody tr:nth-child(' + row_index + ')').addClass('linked-row');
+            //            $('#' + _this.CONFIG.prefix + '_left' + ' tbody tr:nth-child(' + row_index + ')').addClass('linked-row');
+            //        } catch (e) {
+            //
+            //        }
+            //    }
+            //}).mouseleave(function() {
+            //    var row_index = $(this).data('rowindex');
+            //    if (row_index != null) {
+            //        try {
+            //            $('#' + _this.CONFIG.prefix + '_right' + ' tbody tr:nth-child(' + row_index + ')').removeClass('linked-row');
+            //            $('#' + _this.CONFIG.prefix + '_left' + ' tbody tr:nth-child(' + row_index + ')').removeClass('linked-row');
+            //        } catch (e) {
+            //
+            //        }
+            //    }
+            //});
 
         } catch (e) {
 
