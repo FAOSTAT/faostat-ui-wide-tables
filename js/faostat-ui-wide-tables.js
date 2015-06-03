@@ -1,7 +1,7 @@
 define(['jquery',
         'underscore',
         'handlebars',
-        'text!faostat_ui_wide_tables/html/templates.html',
+        'text!faostat_ui_wide_tables/html/templates.hbs',
         'i18n!faostat_ui_wide_tables/nls/translate',
         'faostat_commons',
         'bootstrap'], function ($, _, Handlebars, templates, translate, FAOSTATCommons) {
