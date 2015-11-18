@@ -9,4 +9,19 @@
   background-color: #666 !important;
   color: #fff; }
 
+.wide-table {
+  line-height: 20px; }
+  .wide-table thead {
+    background-color: #90AEC3;
+    color: #fff;
+    font-size: 12px; }
+  .wide-table th {
+    padding: 4px 6px 4px 6px; }
+  .wide-table tbody td {
+    padding: 8px; }
+
+.linked-row {
+  background-color: #2471AA !important;
+  color: #fff !important; }
+
 /*# sourceMappingURL=faostat-ui-wide-tables.css.map */

@@ -64,6 +64,9 @@ define(['jquery',
             var codes_buffer = [];
             var bottom_codes_buffer = [];
 
+            /* Row counter. */
+            var row_index = 1;
+
             /* Iterate over the values. */
             for (var i = 0; i < this.CONFIG.data.length; i++) {
 
@@ -94,7 +97,8 @@ define(['jquery',
                                 values: values,
                                 show_row_code: this.CONFIG.show_row_code,
                                 code: this.CONFIG.data[i][this.CONFIG.row_code],
-                                label: this.CONFIG.data[i][this.CONFIG.row_label]
+                                label: this.CONFIG.data[i][this.CONFIG.row_label],
+                                row_index: row_index++
                             });
                         }
 
@@ -119,7 +123,8 @@ define(['jquery',
                                 values: bottom_values,
                                 show_row_code: this.CONFIG.show_row_code,
                                 bottom_code: this.CONFIG.data[i][this.CONFIG.row_code],
-                                label: this.CONFIG.data[i][this.CONFIG.row_label]
+                                label: this.CONFIG.data[i][this.CONFIG.row_label],
+                                row_index: row_index++
                             });
                         }
 
@@ -147,10 +152,35 @@ define(['jquery',
                 rows_dimension: this.CONFIG.template_rows_dimension,
                 bottom_rows_dimension: this.CONFIG.template_bottom_rows_dimension,
                 show_row_code: this.CONFIG.show_row_code,
-                scroll_id:this.CONFIG.placeholder_id + '_scroll'
+                scroll_id:this.CONFIG.placeholder_id + '_scroll',
+                left_table_id: this.CONFIG.prefix + '_left',
+                right_table_id: this.CONFIG.prefix + '_right'
             };
             var html = template(dynamic_data);
             $('#' + this.CONFIG.placeholder_id).empty().html(html);
+
+            /* Synchronize row highlight on multiple tables. */
+            //$('#' + this.CONFIG.placeholder_id + ' tr').mouseenter(function() {
+            //    var row_index = $(this).data('rowindex');
+            //    if (row_index != null) {
+            //        try {
+            //            $('#' + _this.CONFIG.prefix + '_right' + ' tbody tr:nth-child(' + row_index + ')').addClass('linked-row');
+            //            $('#' + _this.CONFIG.prefix + '_left' + ' tbody tr:nth-child(' + row_index + ')').addClass('linked-row');
+            //        } catch (e) {
+            //
+            //        }
+            //    }
+            //}).mouseleave(function() {
+            //    var row_index = $(this).data('rowindex');
+            //    if (row_index != null) {
+            //        try {
+            //            $('#' + _this.CONFIG.prefix + '_right' + ' tbody tr:nth-child(' + row_index + ')').removeClass('linked-row');
+            //            $('#' + _this.CONFIG.prefix + '_left' + ' tbody tr:nth-child(' + row_index + ')').removeClass('linked-row');
+            //        } catch (e) {
+            //
+            //        }
+            //    }
+            //});
 
         } catch (e) {
 
