@@ -8,12 +8,6 @@ define(function() {
         shim: {
             bootstrap: {
                 deps: ['jquery']
-            },
-            underscore: {
-                exports: '_'
-            },
-            handlebars: {
-                exports: 'Handlebars'
             }
         }
     };

@@ -61,7 +61,6 @@ The next table shows all the parameters required to render a wide table.
 |blacklist|Array of codes that will not be displayed in the table.|['1', '5', '7']|
 |color_values|Flag to determin whether the numbers in the tables will be colored according to their value: green for values greater than zero and red for the ones smaller than zero.|true|
 |bottom_row_codes|Array of values to be displayed in the bottom row(s) with a different style.|['27']|
-|sort_by|Sorte the rows by the specified dimension, 'label' by default.|'code' or 'label'.|
 
 Example
 -------
