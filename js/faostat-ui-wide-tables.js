@@ -1,12 +1,10 @@
 define(['jquery',
         'underscore',
         'handlebars',
-        'text!faostat_ui_wide_tables/html/templates.html',
+        'text!faostat_ui_wide_tables/html/templates.hbs',
         'i18n!faostat_ui_wide_tables/nls/translate',
-        'FAOSTAT_UI_COMMONS',
-        'bootstrap',
-        'sweetAlert',
-        'amplify'], function ($, _, Handlebars, templates, translate, Commons) {
+        'faostat_commons',
+        'bootstrap'], function ($, _, Handlebars, templates, translate, FAOSTATCommons) {
 
     'use strict';
 
@@ -57,7 +55,7 @@ define(['jquery',
             this.CONFIG.lang = this.CONFIG.lang != null ? this.CONFIG.lang : 'en';
 
             /* Store FAOSTAT language. */
-            this.CONFIG.lang_faostat = Commons.iso2faostat(this.CONFIG.lang);
+            this.CONFIG.lang_faostat = FAOSTATCommons.iso2faostat(this.CONFIG.lang);
 
             /* Initiate variables. */
             this.CONFIG.template_cols_dimension = [];
