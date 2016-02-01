@@ -33,7 +33,8 @@ define(['jquery',
 
             template_cols_dimension         :   [],
             template_rows_dimension         :   [],
-            template_bottom_rows_dimension  :   []
+            template_bottom_rows_dimension  :   [],
+            thousand_separator              :   ','
 
         };
 
@@ -90,8 +91,11 @@ define(['jquery',
                             for (var j = 0; j < this.CONFIG.data.length; j++) {
                                 if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
                                     var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
-                                    if (value == null)
+                                    if (value == null) {
                                         value = '&nbsp;';
+                                    }else{
+                                        value = this.formatValue(value);
+                                    }
                                     values.push(value);
                                 }
                             }
@@ -116,8 +120,11 @@ define(['jquery',
                             for (j = 0; j < this.CONFIG.data.length; j++) {
                                 if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
                                     var bottom_value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
-                                    if (bottom_value == null)
+                                    if (bottom_value == null) {
                                         bottom_value = '&nbsp;';
+                                    }else {
+                                        bottom_value = this.formatValue(bottom_value);
+                                    }
                                     bottom_values.push(bottom_value);
                                 }
                             }
@@ -308,6 +315,10 @@ define(['jquery',
         if (this.CONFIG.value_dimension == null)
             throw translate.value_dimension_is_null;
 
+    };
+
+    WIDE_TABLES.prototype.formatValue = function(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, this.CONFIG.thousand_separator);
     };
 
     return WIDE_TABLES;
