@@ -1,4 +1,5 @@
 define({
     code: 'Code',
-    label: 'Catégorie'
+    label: 'Catégorie',
+    country: 'Pays'
 });

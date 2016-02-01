@@ -12,7 +12,8 @@ define({
         source: 'Source',
         date: 'Date',
         faostat: 'FAOSTAT',
-        description: 'Description'
+        description: 'Description',
+        country: 'Country'
     },
     fr : true,
     F : true,
