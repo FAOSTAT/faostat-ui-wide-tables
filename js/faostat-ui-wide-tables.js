@@ -204,7 +204,7 @@ define(['jquery',
 
     };
 
-    WIDE_TABLES.prototype.export_table = function(description, file_name) {
+    WIDE_TABLES.prototype.export_table = function(description, file_name, exportObj) {
 
         /* Set file name. */
         file_name = file_name != null ? file_name + '.csv' : 'FAOSTAT.csv';
@@ -279,8 +279,9 @@ define(['jquery',
 
         /* Add source and date. */
         csv += '\n\n\n';
-        csv += translate.description + ': ' + description + '\n';
-        csv += translate.source + ': ' + translate.faostat + '\n';
+        csv += translate.country + ': '  + this.CONFIG.area_name + '\n';
+        csv += translate.description + ': ' + this.sanitizeString(this.CONFIG.description) + '\n';
+        csv += translate.source + ': ' + this.CONFIG.source + '\n';
         csv += translate.date + ': ' + (new Date()).toDateString() + '\n';
 
         /* Export the CSV. */
@@ -291,6 +292,11 @@ define(['jquery',
         document.body.appendChild(a);
         a.click();
 
+    };
+
+    // dirty sinitaze of the string
+    WIDE_TABLES.prototype.sanitizeString = function(text) {
+        return text.replace('<sub>', '').replace('</sub>', '');
     };
 
     WIDE_TABLES.prototype.check_configuration = function() {
