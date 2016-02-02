@@ -5,6 +5,7 @@ define(['jquery',
         'i18n!faostat_ui_wide_tables/nls/translate',
         'FAOSTAT_UI_COMMONS',
         'bootstrap',
+        'FileSaver',
         'sweetAlert',
         'amplify'], function ($, _, Handlebars, templates, translate, Commons) {
 
@@ -283,6 +284,13 @@ define(['jquery',
         csv += translate.description + ': ' + this.sanitizeString(this.CONFIG.description) + '\n';
         csv += translate.source + ': ' + this.CONFIG.source + '\n';
         csv += translate.date + ': ' + (new Date()).toDateString() + '\n';
+
+        var blob = new Blob([csv], {type: "data:application/csv;charset=utf-8;"});
+
+        // override filename
+        file_name = this.sanitizeString(this.CONFIG.description) +".csv";
+
+        saveAs(blob, file_name);
 
         /* Export the CSV. */
         var a = document.createElement('a');
