@@ -232,6 +232,9 @@ define(['jquery',
 
     WIDE_TABLES.prototype.export_table = function(description, file_name, exportObj) {
 
+        // override if there are export configurations
+        this.CONFIG = $.extend(true, {}, this.CONFIG, exportObj || {});
+
         /* Set file name. */
         file_name = file_name != null ? file_name + '.csv' : 'FAOSTAT.csv';
 
@@ -318,12 +321,12 @@ define(['jquery',
         saveAs(blob, file_name);
 
         /* Export the CSV. */
-        var a = document.createElement('a');
+        /*var a = document.createElement('a');
         a.href = 'data:text/csv;charset=utf-8,\n' + encodeURIComponent(csv);
         a.target = '_blank';
         a.download = file_name;
         document.body.appendChild(a);
-        a.click();
+        a.click();*/
 
     };
 
