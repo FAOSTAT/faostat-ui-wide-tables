@@ -4,10 +4,11 @@ define(['jquery',
         'text!faostat_ui_wide_tables/html/templates.html',
         'i18n!faostat_ui_wide_tables/nls/translate',
         'FAOSTAT_UI_COMMONS',
+        'loglevel',
         'bootstrap',
         'FileSaver',
         'sweetAlert',
-        'amplify'], function ($, _, Handlebars, templates, translate, Commons) {
+        'amplify'], function ($, _, Handlebars, templates, translate, Commons, log) {
 
     'use strict';
 
@@ -42,6 +43,8 @@ define(['jquery',
     }
 
     WIDE_TABLES.prototype.init = function(config) {
+
+       // log.info("WIDE_TABLES.init;");
 
         /* Extend default configuration. */
         this.CONFIG = $.extend(true, {}, this.CONFIG, config);
@@ -91,7 +94,11 @@ define(['jquery',
                             var values = [];
                             for (var j = 0; j < this.CONFIG.data.length; j++) {
                                 if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
-                                    var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
+                                    log.info(this.CONFIG.value_dimension, this.CONFIG.data[j]);
+                                    log.info(this.CONFIG.data[j].GUNFItemNameE, this.CONFIG.data[j][this.CONFIG.value_dimension]);
+                                    //var value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
+                                    var value = isNaN(this.CONFIG.data[j][this.CONFIG.value_dimension])? null: parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2);
+                                    log.info(value, parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]));
                                     if (value == null) {
                                         value = '&nbsp;';
                                     }else{
@@ -119,8 +126,9 @@ define(['jquery',
                             bottom_codes_buffer.push(this.CONFIG.data[i][this.CONFIG.row_code]);
                             var bottom_values = [];
                             for (j = 0; j < this.CONFIG.data.length; j++) {
-                                if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code]) {
-                                    var bottom_value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
+                                if (this.CONFIG.data[j][this.CONFIG.row_code] == this.CONFIG.data[i][this.CONFIG.row_code])  {
+                                    var bottom_value = isNaN(this.CONFIG.data[j][this.CONFIG.value_dimension])? null: parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2);
+                                    //var bottom_value = parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]) > -1 ? parseFloat(this.CONFIG.data[j][this.CONFIG.value_dimension]).toFixed(2) : null;
                                     if (bottom_value == null) {
                                         bottom_value = '&nbsp;';
                                     }else {
@@ -166,6 +174,23 @@ define(['jquery',
                 left_table_id: this.CONFIG.prefix + '_left',
                 right_table_id: this.CONFIG.prefix + '_right'
             };
+
+
+            //log.info(dynamic_data);
+
+            if (this.CONFIG.data[0] !== undefined) {
+               if ( this.CONFIG.data[0].DomainCode.toUpperCase() === 'GM') {
+                   log.info("--------------------");
+                   log.info( this.CONFIG.data);
+                   log.info(dynamic_data);
+               }
+
+            }
+
+                //log.info("TABLE data;", this.CONFIG.data[area_code]);
+
+
+
             var html = template(dynamic_data);
             $('#' + this.CONFIG.placeholder_id).empty().html(html);
 
@@ -304,7 +329,12 @@ define(['jquery',
 
     // dirty sinitaze of the string
     WIDE_TABLES.prototype.sanitizeString = function(text) {
-        return text.replace('<sub>', '').replace('</sub>', '');
+        if (text) {
+            return text.replace('<sub>', '').replace('</sub>', '');
+        }
+        else {
+            return text;
+        }
     };
 
     WIDE_TABLES.prototype.check_configuration = function() {
