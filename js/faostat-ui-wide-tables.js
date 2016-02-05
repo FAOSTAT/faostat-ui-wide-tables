@@ -342,7 +342,7 @@ define(['jquery',
 
     WIDE_TABLES.prototype.sanitizeStringFilename = function(text) {
         if (text) {
-            return text.replace('<sub>', '').replace('</sub>', '').replace('[%]', '');
+            return text.replace('<sub>', '').replace('</sub>', '').replace('[%]', '').replace('(%)', '').replace('%', '');
         }
         else {
             return text;
