@@ -316,7 +316,7 @@ define(['jquery',
         var blob = new Blob([csv], {type: "data:application/csv;charset=utf-8;"});
 
         // override filename
-        file_name = this.sanitizeString(this.CONFIG.description) +".csv";
+        file_name = this.sanitizeStringFilename(this.CONFIG.description) +".csv";
 
         saveAs(blob, file_name);
 
@@ -334,6 +334,15 @@ define(['jquery',
     WIDE_TABLES.prototype.sanitizeString = function(text) {
         if (text) {
             return text.replace('<sub>', '').replace('</sub>', '');
+        }
+        else {
+            return text;
+        }
+    };
+
+    WIDE_TABLES.prototype.sanitizeStringFilename = function(text) {
+        if (text) {
+            return text.replace('<sub>', '').replace('</sub>', '').replace('[%]', '');
         }
         else {
             return text;
