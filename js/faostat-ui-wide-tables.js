@@ -333,19 +333,19 @@ define(['jquery',
     // dirty sinitaze of the string
     WIDE_TABLES.prototype.sanitizeString = function(text) {
         if (text) {
-            return text.replace('<sub>', '').replace('</sub>', '');
+            return text.replace('<sub>', '').replace('</sub>', '').replace('<sub>', '').replace('</sub>', '').trim();
         }
         else {
-            return text;
+            return text.trim();
         }
     };
 
     WIDE_TABLES.prototype.sanitizeStringFilename = function(text) {
         if (text) {
-            return text.replace('<sub>', '').replace('</sub>', '').replace('[%]', '').replace('(%)', '').replace('%', '');
+            return text.replace('<sub>', '').replace('</sub>', '').replace('<sub>', '').replace('</sub>', '').replace('[%]', '').replace('(%)', '').replace('%', '').trim();
         }
         else {
-            return text;
+            return text.trim();
         }
     };
 
