@@ -242,8 +242,9 @@ define(['jquery',
         var csv = '';
 
         /* Add code header. */
-        if (this.CONFIG.show_row_code)
+        if (this.CONFIG.show_row_code) {
             csv += '\"' + translate.code + '\",';
+        }
 
         /* Add label header. */
         csv += '\"' + translate.label + '\",';
@@ -251,8 +252,9 @@ define(['jquery',
         /* Add column headers. */
         for (var i = 0 ; i < this.CONFIG.template_cols_dimension.length ; i++) {
             csv += '\"' + this.CONFIG.template_cols_dimension[i] + '\"';
-            if (i < this.CONFIG.template_cols_dimension.length - 1)
-                csv += ','
+            if (i < this.CONFIG.template_cols_dimension.length - 1) {
+                csv += ',';
+            }
         }
         csv += '\n';
 
@@ -263,17 +265,19 @@ define(['jquery',
             var row = this.CONFIG.template_rows_dimension[i];
 
             /* Add code. */
-            if (this.CONFIG.show_row_code)
+            if (this.CONFIG.show_row_code) {
                 csv += '\"' + row.code + '\",';
+            }
 
             /* Add label. */
-            csv += '\"' + row.label + '\", ';
+            csv += '\"' + row.label + '\",';
 
             /* Add values. */
             for (var j = 0 ; j < row.values.length ; j++) {
                 csv += row.values[j] != '&nbsp;' ? '\"' + row.values[j] + '\"' : '';
-                if (j < row.values.length - 1)
+                if (j < row.values.length - 1) {
                     csv += ',';
+                }
             }
 
             /* Add new line. */
@@ -288,17 +292,19 @@ define(['jquery',
             row = this.CONFIG.template_bottom_rows_dimension[i];
 
             /* Add code. */
-            if (this.CONFIG.show_row_code)
+            if (this.CONFIG.show_row_code) {
                 csv += '\"' + row.code + '\",';
+            }
 
             /* Add label. */
-            csv += '\"' + row.label + '\", ';
+            csv += '\"' + row.label + '\",';
 
             /* Add values. */
             for (j = 0 ; j < row.values.length ; j++) {
                 csv += row.values[j] != '&nbsp;' ? '\"' + row.values[j] + '\"' : '';
-                if (j < row.values.length - 1)
+                if (j < row.values.length - 1) {
                     csv += ',';
+                }
             }
 
             /* Add new line. */
